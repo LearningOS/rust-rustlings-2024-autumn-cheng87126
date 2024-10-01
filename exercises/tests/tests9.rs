@@ -27,9 +27,6 @@
 //
 // You should NOT modify any existing code except for adding two lines of attributes.
 
-// I AM NOT DONE
-// #[allow(non_snake_case)]
-// #[link(name = "foo", kind = "static")]
 extern "Rust" {
     fn my_demo_function(a: u32) -> u32;
     #[link_name = "my_demo_function"]
@@ -38,9 +35,6 @@ extern "Rust" {
 
 mod Foo {
     // No `extern` equals `extern "Rust"`.
-    // #[no_mangle]
-    // #[export_name = "my_demo_function"]
-    // #[export_name = "my_demo_function_alias"]
     #[no_mangle]
     fn my_demo_function(a: u32) -> u32 {
         a
