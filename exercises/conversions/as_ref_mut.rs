@@ -21,7 +21,7 @@ fn char_counter<T: AsRef<str>>(arg: T) -> usize {
 
 // Squares a number using as_mut().
 // TODO: Add the appropriate trait bound.
-fn num_sq<T:AsMut<u32>>(arg: &mut T) {
+fn num_sq<T: AsMut<u32>>(arg: &mut T) {
     // TODO: Implement the function body.
     let mut data = arg.as_mut();
     *data = data.pow(2);

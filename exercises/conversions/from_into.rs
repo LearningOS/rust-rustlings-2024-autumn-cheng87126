@@ -48,7 +48,7 @@ impl From<&str> for Person {
                 name: name_age[0].to_string(),
                 age: name_age[1].parse().unwrap(),
             }
-        }else{
+        } else {
             Person::default()
         }
     }

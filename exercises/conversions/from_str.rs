@@ -53,17 +53,17 @@ impl FromStr for Person {
         let name_age = s.split(",").collect::<Vec<_>>();
         if s.is_empty() {
             Err(ParsePersonError::Empty)
-        }else if name_age.len() != 2 {
+        } else if name_age.len() != 2 {
             Err(ParsePersonError::BadLen)
-        }else if name_age[0].is_empty() {
+        } else if name_age[0].is_empty() {
             Err(ParsePersonError::NoName)
-        }else{
+        } else {
             match name_age[1].parse::<usize>() {
                 Ok(age) => Ok(Person {
                     name: name_age[0].to_string(),
                     age,
                 }),
-                Err(e) => Err(ParsePersonError::ParseInt(e))
+                Err(e) => Err(ParsePersonError::ParseInt(e)),
             }
         }
     }

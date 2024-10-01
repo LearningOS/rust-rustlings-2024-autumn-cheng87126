@@ -38,7 +38,7 @@ mod my_module {
             let str = match command {
                 Command::Uppercase => string.to_uppercase(),
                 Command::Trim => string.trim().to_string(),
-                Command::Append(n) => string.to_owned() + &"bar".repeat(*n)
+                Command::Append(n) => string.to_owned() + &"bar".repeat(*n),
             };
             output.push(str);
         }
@@ -49,8 +49,8 @@ mod my_module {
 #[cfg(test)]
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
-    use crate::my_module::transformer;
     use super::Command;
+    use crate::my_module::transformer;
 
     #[test]
     fn it_works() {

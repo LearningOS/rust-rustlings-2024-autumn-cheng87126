@@ -8,9 +8,9 @@
 // hint.
 
 use std::sync::Arc;
+use std::sync::Mutex;
 use std::thread;
 use std::time::Duration;
-use std::sync::Mutex;
 
 struct JobStatus {
     jobs_completed: u32,
