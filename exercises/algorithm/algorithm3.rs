@@ -3,10 +3,23 @@
 	This problem requires you to implement a sorting algorithm
 	you can use bubble sorting, insertion sorting, heap sorting, etc.
 */
-// I AM NOT DONE
 
-fn sort<T>(array: &mut [T]){
+fn sort<T:std::cmp::PartialOrd + Copy>(array: &mut [T]){
 	//TODO
+    let ptr = array as *mut [T];
+    unsafe {
+        for (idx, i) in (*ptr).iter().enumerate() {
+            for (jdx, j) in (*ptr).iter().enumerate() {
+                if i < j {
+                    let min = &mut array[jdx] as *mut T;
+                    let max = &mut array[idx] as *mut T;
+                    let tmp = *max;
+                    *max = *min;
+                    *min = tmp;
+                }
+            }
+        }
+    }
 }
 #[cfg(test)]
 mod tests {

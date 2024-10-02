@@ -2,14 +2,13 @@
 	heap
 	This question requires you to implement a binary heap function
 */
-// I AM NOT DONE
 
 use std::cmp::Ord;
 use std::default::Default;
 
 pub struct Heap<T>
 where
-    T: Default,
+    T: Default+Copy,
 {
     count: usize,
     items: Vec<T>,
@@ -18,7 +17,7 @@ where
 
 impl<T> Heap<T>
 where
-    T: Default,
+    T: Default+Copy,
 {
     pub fn new(comparator: fn(&T, &T) -> bool) -> Self {
         Self {
@@ -38,6 +37,20 @@ where
 
     pub fn add(&mut self, value: T) {
         //TODO
+        self.count += 1;
+        self.items.push(value);
+        let mut k = self.items.len() - 1;
+        while k>1 && (self.comparator)(&self.items[k/2],&self.items[k]) {
+            // std::mem::swap(&mut self.items[k/2], &mut self.items[k]);
+            let min = &mut self.items[k/2] as *mut T;
+            let max = &mut self.items[k] as *mut T;
+            unsafe {
+                let tmp = *max;
+                *max = *min;
+                *min = tmp;
+            }
+            k /= 2;
+        }
     }
 
     fn parent_idx(&self, idx: usize) -> usize {
@@ -64,7 +77,7 @@ where
 
 impl<T> Heap<T>
 where
-    T: Default + Ord,
+    T: Default + Ord+Copy,
 {
     /// Create a new MinHeap
     pub fn new_min() -> Self {
@@ -79,13 +92,19 @@ where
 
 impl<T> Iterator for Heap<T>
 where
-    T: Default,
+    T: Default+Copy,
 {
     type Item = T;
 
     fn next(&mut self) -> Option<T> {
         //TODO
-		None
+		if !self.is_empty() {
+			self.count -= 1;
+            self.items.pop()
+		}
+		else {
+			None
+		}
     }
 }
 
@@ -95,7 +114,7 @@ impl MinHeap {
     #[allow(clippy::new_ret_no_self)]
     pub fn new<T>() -> Heap<T>
     where
-        T: Default + Ord,
+        T: Default + Ord+Copy,
     {
         Heap::new(|a, b| a < b)
     }
@@ -107,7 +126,7 @@ impl MaxHeap {
     #[allow(clippy::new_ret_no_self)]
     pub fn new<T>() -> Heap<T>
     where
-        T: Default + Ord,
+        T: Default + Ord+Copy,
     {
         Heap::new(|a, b| a > b)
     }
